@@ -21,7 +21,7 @@ public class GuestbookTestIT {
     public  void addEntries() throws Exception {
         mockMvc.perform(post("/entries")
             .content("")
-                .contentType(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isCreated());
     }
 }
