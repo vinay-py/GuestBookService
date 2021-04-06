@@ -28,7 +28,6 @@ public class GuestbookTestIT {
     @Test
     public  void addEntries() throws Exception {
         GuestBookEntriesDTO guestBookEntriesDTO = new GuestBookEntriesDTO("Nice Experience");
-
         mockMvc.perform(post("/entries")
             .content(objectMapper.writeValueAsString(guestBookEntriesDTO))
             .contentType(MediaType.APPLICATION_JSON)
