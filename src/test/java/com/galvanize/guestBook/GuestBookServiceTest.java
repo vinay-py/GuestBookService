@@ -8,7 +8,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class GuestBookServiceTest {
@@ -25,6 +29,26 @@ public class GuestBookServiceTest {
         subject.create(guestBookEntriesDTO);
         verify(mockGuestBookRepository).save(
                 new GuestBookEntriesEntity("Guest1", "Nice Expetience")
+        );
+    }
+
+    @Test
+    void fetchALl(){
+        GuestBookEntriesEntity guestBookEntriesEntity=new GuestBookEntriesEntity("Guest1","Nice Experience");
+        when(mockGuestBookRepository.findAll()).thenReturn(
+                List.of(
+                        guestBookEntriesEntity,
+                        new GuestBookEntriesEntity("Guest2","Awesome Experience")
+                )
+        );
+
+        List<GuestBookEntriesDTO> actual = subject.fetchALl();
+
+        assertThat(actual).isEqualTo(
+                List.of(
+                        new GuestBookEntriesDTO("Guest1","Nice Experience"),
+                        new GuestBookEntriesDTO("Guest2","Awesome Experience")
+                )
         );
     }
 

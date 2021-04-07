@@ -6,6 +6,9 @@ import com.galvanize.guestBook.model.GuestBookEntriesDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class GuestBookService {
 
@@ -21,5 +24,14 @@ public class GuestBookService {
         guestBookRepository.save(
                 new GuestBookEntriesEntity(guestBookEntriesDTO.getGuestName(),
                         guestBookEntriesDTO.getComment()));
+    }
+
+    public List<GuestBookEntriesDTO> fetchALl() {
+        return guestBookRepository.findAll()
+                .stream()
+                .map(guestBookEntriesEntity -> {
+                    return new GuestBookEntriesDTO(guestBookEntriesEntity.getGuestName(),guestBookEntriesEntity.getComment());
+                })
+                .collect(Collectors.toList());
     }
 }

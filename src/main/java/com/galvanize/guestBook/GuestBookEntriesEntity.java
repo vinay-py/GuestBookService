@@ -2,6 +2,8 @@ package com.galvanize.guestBook;
 
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,8 @@ import javax.persistence.Id;
 
 @Entity
 @EqualsAndHashCode
+@Getter
+@Setter
 public class GuestBookEntriesEntity {
 
     @Id
@@ -22,4 +26,12 @@ public class GuestBookEntriesEntity {
         this.guestName = guestName;
         this.comment = comment;
     }
+
+//    public String getGuestName() {
+//        return guestName;
+//    }
+//
+//    public String getComment() {
+//        return comment;
+//    }
 }
