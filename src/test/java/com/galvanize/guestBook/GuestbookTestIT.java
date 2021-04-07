@@ -27,13 +27,14 @@ public class GuestbookTestIT {
 
     @Test
     public  void addEntries() throws Exception {
-        GuestBookEntriesDTO guestBookEntriesDTO = new GuestBookEntriesDTO("Nice Experience");
+        GuestBookEntriesDTO guestBookEntriesDTO = new GuestBookEntriesDTO("Guest1", "Nice Experience");
         mockMvc.perform(post("/entries")
             .content(objectMapper.writeValueAsString(guestBookEntriesDTO))
             .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isCreated());
         mockMvc.perform(get("/entries")
         ).andExpect(status().isOk())
-        .andExpect(jsonPath("[0].comment").value("Nice Experience"));
+        .andExpect(jsonPath("[0].comment").value("Nice Experience"))
+        .andExpect(jsonPath("[0].guestName").value("Guest1"));
     }
 }
