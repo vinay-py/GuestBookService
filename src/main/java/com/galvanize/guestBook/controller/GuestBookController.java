@@ -10,22 +10,23 @@ import java.util.List;
 
 @RestController
 public class GuestBookController {
-    public GuestBookController() {
-       guestBookEntriesDTOList=new ArrayList<GuestBookEntriesDTO>();
+    GuestBookService guestBookService;
+
+    public GuestBookController(GuestBookService guestBookService) {
+       this.guestBookService = guestBookService;
     }
 
-    ArrayList<GuestBookEntriesDTO> guestBookEntriesDTOList;
+
 //    GuestBookService guestBookService;
     @PostMapping("entries")
     @ResponseStatus(HttpStatus.CREATED)
     public void addEntries(@RequestBody GuestBookEntriesDTO guestBookEntriesDTO ){
-        this.guestBookEntriesDTOList.add(guestBookEntriesDTO);
-//        guestBookService.create(guestBookEntriesDTO);
+        guestBookService.create(guestBookEntriesDTO);
 
     }
 
     @GetMapping("entries")
-    public ArrayList<GuestBookEntriesDTO> getEntries(){
-        return this.guestBookEntriesDTOList;
+    public List<GuestBookEntriesDTO> getEntries(){
+        return this.guestBookService.fetchALl();
     }
 }
